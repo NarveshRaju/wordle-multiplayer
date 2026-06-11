@@ -1,0 +1,18 @@
+{
+  "name": "wordle-party-backend",
+  "version": "1.0.0",
+  "description": "Multiplayer Wordle Party game server with Socket.IO",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": ["wordle", "multiplayer", "socket.io", "game"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}

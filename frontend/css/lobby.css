@@ -1,0 +1,361 @@
+/* ============================================
+   WORDLE PARTY — Lobby Styles
+   Waiting room, landing page
+   ============================================ */
+
+/* ══════════════════════════════════════════════
+   LANDING PAGE
+   ══════════════════════════════════════════════ */
+
+.landing {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-4);
+  position: relative;
+}
+
+/* ── Title Section ── */
+.landing__title-section {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+.landing__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+}
+
+.landing__subtitle {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  font-weight: var(--font-normal);
+  animation: fadeInUp 600ms ease-out backwards;
+  animation-delay: 900ms;
+}
+
+/* ── Cards Container ── */
+.landing__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  max-width: 720px;
+  width: 100%;
+  animation: fadeInUp 600ms ease-out backwards;
+  animation-delay: 1100ms;
+}
+
+.landing__card {
+  min-width: 0;
+}
+
+.landing__card .card__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.landing__card .card__title-icon {
+  font-size: var(--text-xl);
+}
+
+/* ── Footer ── */
+.landing__footer {
+  margin-top: var(--space-12);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  animation: fadeIn 600ms ease-out backwards;
+  animation-delay: 1400ms;
+}
+
+.landing__footer span {
+  color: var(--error);
+}
+
+/* ══════════════════════════════════════════════
+   LOBBY (In-Game Waiting Room)
+   ══════════════════════════════════════════════ */
+
+.lobby {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-4);
+  gap: var(--space-8);
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.lobby__section {
+  width: 100%;
+  text-align: center;
+}
+
+/* ── Room Code Section ── */
+.lobby__room-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.lobby__room-label {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  font-weight: var(--font-semibold);
+}
+
+.lobby__room-code {
+  font-family: var(--font-mono);
+  font-size: var(--text-5xl);
+  font-weight: var(--font-extrabold);
+  letter-spacing: 0.35em;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+  position: relative;
+}
+
+.lobby__room-code:hover {
+  transform: scale(1.05);
+}
+
+.lobby__room-hint {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* ── Mode Badge ── */
+.lobby__mode-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.lobby__mode-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+}
+
+.lobby__mode-badge--race {
+  border-color: rgba(106, 170, 100, 0.4);
+  color: var(--primary-dark);
+}
+
+.lobby__mode-badge--coop {
+  border-color: rgba(59, 130, 246, 0.4);
+  color: var(--info);
+}
+
+/* ── Players Grid ── */
+.lobby__players {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.lobby__player-card {
+  background: #ffffff;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  transition: all var(--transition-base);
+  animation: scaleIn 300ms ease-out backwards;
+}
+
+.lobby__player-card:nth-child(1) { animation-delay: 0ms; }
+.lobby__player-card:nth-child(2) { animation-delay: 100ms; }
+.lobby__player-card:nth-child(3) { animation-delay: 200ms; }
+.lobby__player-card:nth-child(4) { animation-delay: 300ms; }
+
+.lobby__player-card.is-self {
+  border-color: var(--primary);
+  background: rgba(106, 170, 100, 0.04);
+}
+
+.lobby__player-name {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lobby__player-badge {
+  font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+.lobby__player-badge--host {
+  background: rgba(201, 180, 88, 0.15);
+  color: #8b7a2e;
+  border: 1px solid rgba(201, 180, 88, 0.3);
+}
+
+.lobby__player-badge--you {
+  background: rgba(106, 170, 100, 0.12);
+  color: var(--primary-dark);
+  border: 1px solid rgba(106, 170, 100, 0.3);
+}
+
+/* Empty player slot */
+.lobby__player-slot {
+  background: var(--surface-2);
+  border: 2px dashed var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 140px;
+}
+
+.lobby__player-slot-icon {
+  font-size: var(--text-2xl);
+  color: var(--text-muted);
+}
+
+.lobby__player-slot-text {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+/* ── Status Message ── */
+.lobby__status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+}
+
+.lobby__status-text {
+  font-weight: var(--font-medium);
+}
+
+/* ── Host Controls ── */
+.lobby__controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 300px;
+}
+
+.lobby__mode-select {
+  width: 100%;
+}
+
+/* ══════════════════════════════════════════════
+   STATES — Show/Hide sections
+   ══════════════════════════════════════════════ */
+
+.state-lobby,
+.state-game,
+.state-gameover {
+  display: none;
+}
+
+.state-lobby.active {
+  display: flex;
+}
+
+.state-game.active {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.state-gameover.active {
+  display: flex;
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE LANDING
+   ══════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+  .landing__cards {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+
+  .landing__title-section {
+    margin-bottom: var(--space-8);
+  }
+
+  .title-letter {
+    width: 42px;
+    height: 42px;
+    font-size: 1.3rem;
+    margin: 0 2px;
+  }
+
+  .title-space {
+    width: 12px;
+  }
+
+  .landing__subtitle {
+    font-size: var(--text-base);
+  }
+
+  .lobby__room-code {
+    font-size: var(--text-4xl);
+  }
+
+  .lobby__players {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .title-letter {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+    margin: 0 1px;
+  }
+
+  .lobby__players {
+    grid-template-columns: 1fr;
+  }
+}

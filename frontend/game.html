@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wordle Party — Multiplayer Wordle game room">
+    <title>Wordle Party — Game</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/lobby.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟩</text></svg>">
+</head>
+<body>
+    <div class="page">
+
+        <!-- ═══════════════════════════════════════════
+             GAME HEADER
+             ═══════════════════════════════════════════ -->
+        <header class="game-header">
+            <div class="game-header__left">
+                <a href="index.html" class="game-header__title" aria-label="Back to home">WORDLE PARTY</a>
+            </div>
+            <div class="game-header__center">
+                <button
+                    type="button"
+                    id="header-room-code"
+                    class="room-code tooltip"
+                    data-tooltip="Click to copy"
+                    aria-label="Copy room code"
+                >
+                    <span id="header-room-code-text">----</span>
+                    <span class="room-code__copy">📋</span>
+                </button>
+                <span id="header-mode-badge" class="badge badge--primary">
+                    <span id="header-mode-icon">⚡</span>
+                    <span id="header-mode-text">Race</span>
+                </span>
+            </div>
+            <div class="game-header__right">
+                <div class="game-header__players">
+                    <span class="game-header__players-icon">👥</span>
+                    <span id="header-player-count">0/4</span>
+                </div>
+                <div id="connection-status" class="connection-status">
+                    <div class="connection-dot connecting" id="connection-dot"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ═══════════════════════════════════════════
+             LOBBY STATE
+             ═══════════════════════════════════════════ -->
+        <div id="lobby-section" class="lobby state-lobby active">
+
+            <!-- Room Code Display -->
+            <div class="lobby__section lobby__room-section">
+                <span class="lobby__room-label">Room Code</span>
+                <div
+                    id="lobby-room-code"
+                    class="lobby__room-code"
+                    role="button"
+                    tabindex="0"
+                    aria-label="Click to copy room code"
+                >
+                    ----
+                </div>
+                <span class="lobby__room-hint">Share this code with friends to join</span>
+            </div>
+
+            <!-- Mode Badge -->
+            <div class="lobby__section lobby__mode-section">
+                <div id="lobby-mode-badge" class="lobby__mode-badge lobby__mode-badge--race">
+                    <span id="lobby-mode-icon">⚡</span>
+                    <span id="lobby-mode-text">Race Mode</span>
+                </div>
+                <!-- Host-only mode selector -->
+                <div id="lobby-mode-select" class="lobby__mode-select" style="display: none;">
+                    <div class="mode-toggle" role="radiogroup" aria-label="Game mode selection">
+                        <button
+                            type="button"
+                            class="mode-toggle__option active"
+                            role="radio"
+                            aria-checked="true"
+                            data-mode="race"
+                        >
+                            <span class="mode-toggle__icon">⚡</span>
+                            <span class="mode-toggle__label">Race</span>
+                        </button>
+                        <button
+                            type="button"
+                            class="mode-toggle__option"
+                            role="radio"
+                            aria-checked="false"
+                            data-mode="coop"
+                        >
+                            <span class="mode-toggle__icon">🤝</span>
+                            <span class="mode-toggle__label">Co-op</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Players Grid -->
+            <div class="lobby__section">
+                <div id="lobby-players" class="lobby__players">
+                    <!-- Player cards dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Status + Controls -->
+            <div class="lobby__section">
+                <div id="lobby-status" class="lobby__status">
+                    <div class="dots-loading">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <span class="lobby__status-text">Waiting for players...</span>
+                </div>
+                <div class="lobby__controls">
+                    <button
+                        type="button"
+                        id="btn-start-game"
+                        class="btn btn--primary btn--lg btn--full"
+                        style="display: none;"
+                    >
+                        <span class="btn__icon">🎯</span>
+                        Start Game
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             GAME STATE
+             ═══════════════════════════════════════════ -->
+        <div id="game-section" class="state-game">
+            <div class="game-layout">
+
+                <!-- Main Game Area -->
+                <div class="game-main">
+                    <!-- Turn Indicator (Co-op mode) -->
+                    <div id="turn-indicator" class="turn-indicator" style="display: none;">
+                        <div id="turn-avatar" class="avatar avatar--sm avatar--1"></div>
+                        <span id="turn-text" class="turn-indicator__text">Your turn</span>
+                    </div>
+
+                    <!-- Game Board -->
+                    <div class="board-container">
+                        <div id="game-board" class="board" role="grid" aria-label="Wordle game board">
+                            <!-- Board rows dynamically generated by board.js -->
+                        </div>
+                    </div>
+
+                    <!-- Virtual Keyboard -->
+                    <div class="keyboard-container">
+                        <div id="game-keyboard" class="keyboard" role="group" aria-label="Virtual keyboard">
+                            <!-- Keyboard rows dynamically generated by keyboard.js -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar: Opponent Progress (desktop) -->
+                <aside id="game-sidebar" class="game-sidebar">
+                    <h3 class="game-sidebar__title">Players</h3>
+                    <div id="sidebar-players" class="flex-column" style="gap: var(--space-3);">
+                        <!-- Opponent cards dynamically inserted -->
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Bottom Panel: Opponent Progress (mobile) -->
+            <div id="game-bottom-panel" class="game-bottom-panel">
+                <div id="bottom-panel-opponents" class="game-bottom-panel__opponents">
+                    <!-- Compact opponent cards for mobile -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             GAME OVER MODAL
+             ═══════════════════════════════════════════ -->
+        <div id="game-over-overlay" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal">
+                <div class="modal__header">
+                    <div id="result-emoji" class="result-modal__emoji">🎉</div>
+                    <h2 id="modal-title" class="modal__title">Game Over</h2>
+                    <p id="modal-subtitle" class="modal__subtitle">Results are in!</p>
+                </div>
+                <div class="modal__body">
+                    <!-- The word -->
+                    <div class="result-modal__word">
+                        <div class="result-modal__word-label">The word was</div>
+                        <div id="result-word" class="result-modal__word-value">HELLO</div>
+                    </div>
+
+                    <!-- Podium / Results (dynamically filled) -->
+                    <div id="result-content"></div>
+                </div>
+                <div class="modal__footer">
+                    <button
+                        type="button"
+                        id="btn-play-again"
+                        class="btn btn--primary"
+                        style="display: none;"
+                    >
+                        <span class="btn__icon">🔄</span>
+                        Play Again
+                    </button>
+                    <span id="waiting-host-text" class="modal__subtitle" style="display: none;">
+                        Waiting for host to start a new round...
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /.page -->
+
+    <!-- ═══════════════════════════════════════════
+         TOAST CONTAINER
+         ═══════════════════════════════════════════ -->
+    <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- ═══════════════════════════════════════════
+         LOADING OVERLAY
+         ═══════════════════════════════════════════ -->
+    <div id="loading-overlay" class="loading-overlay" aria-hidden="true">
+        <div class="spinner spinner--lg"></div>
+        <p class="loading-overlay__text" id="loading-text">Connecting to server...</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         CONFETTI CONTAINER
+         ═══════════════════════════════════════════ -->
+    <div id="confetti-container" class="confetti-container" aria-hidden="true"></div>
+
+    <!-- ═══════════════════════════════════════════
+         MODE TOGGLE STYLES
+         ═══════════════════════════════════════════ -->
+    <style>
+        .mode-toggle {
+            display: flex;
+            gap: var(--space-2);
+            width: 100%;
+        }
+        .mode-toggle__option {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-4);
+            background: var(--surface-2);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-weight: var(--font-semibold);
+            font-size: var(--text-sm);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+        .mode-toggle__option:hover {
+            background: var(--surface-3);
+            border-color: var(--tile-border-filled);
+            color: var(--text-primary);
+        }
+        .mode-toggle__option.active {
+            background: rgba(106, 170, 100, 0.1);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+        }
+        .mode-toggle__option.active[data-mode="coop"] {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--info);
+            color: var(--info);
+        }
+        .mode-toggle__icon {
+            font-size: 1.1em;
+        }
+    </style>
+
+    <!-- Scripts -->
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/socket.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/keyboard.js"></script>
+    <script src="js/lobby.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

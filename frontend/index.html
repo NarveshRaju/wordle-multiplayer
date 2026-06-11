@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wordle Party — Play the classic word game with friends in real-time. Create or join a room and compete in Race or Co-op mode.">
+    <title>Wordle Party — Play Wordle with Friends</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/lobby.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <!-- Favicon (inline SVG data URI) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟩</text></svg>">
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════
+         MAIN LANDING PAGE
+         ═══════════════════════════════════════════ -->
+    <main class="landing" role="main">
+
+        <!-- Title Section -->
+        <div class="landing__title-section">
+            <div class="landing__title" aria-label="Wordle Party">
+                <span class="title-letter">W</span>
+                <span class="title-letter">O</span>
+                <span class="title-letter">R</span>
+                <span class="title-letter">D</span>
+                <span class="title-letter">L</span>
+                <span class="title-letter">E</span>
+                <span class="title-space" aria-hidden="true"></span>
+                <span class="title-letter">P</span>
+                <span class="title-letter">A</span>
+                <span class="title-letter">R</span>
+                <span class="title-letter">T</span>
+                <span class="title-letter">Y</span>
+            </div>
+            <p class="landing__subtitle">Play Wordle with friends in real-time</p>
+        </div>
+
+        <!-- Cards Container -->
+        <div class="landing__cards">
+
+            <!-- CREATE ROOM Card -->
+            <div class="landing__card card card--purple">
+                <div class="card__title">
+                    <span class="card__title-icon" aria-hidden="true">🎮</span>
+                    Create Room
+                </div>
+                <p class="card__subtitle">Start a new game and invite friends</p>
+                <div class="card__body">
+                    <div class="input-group">
+                        <label class="input-label" for="create-name">Your Name</label>
+                        <input
+                            type="text"
+                            id="create-name"
+                            class="input"
+                            placeholder="Enter your name"
+                            maxlength="16"
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Game Mode</label>
+                        <div class="mode-toggle" role="radiogroup" aria-label="Game mode selection">
+                            <button
+                                type="button"
+                                id="mode-race"
+                                class="mode-toggle__option active"
+                                role="radio"
+                                aria-checked="true"
+                                data-mode="race"
+                            >
+                                <span class="mode-toggle__icon">⚡</span>
+                                <span class="mode-toggle__label">Race</span>
+                            </button>
+                            <button
+                                type="button"
+                                id="mode-coop"
+                                class="mode-toggle__option"
+                                role="radio"
+                                aria-checked="false"
+                                data-mode="coop"
+                            >
+                                <span class="mode-toggle__icon">🤝</span>
+                                <span class="mode-toggle__label">Co-op</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="button" id="btn-create-room" class="btn btn--primary btn--full">
+                        <span class="btn__icon">✨</span>
+                        Create Room
+                    </button>
+                </div>
+            </div>
+
+            <!-- JOIN ROOM Card -->
+            <div class="landing__card card card--cyan">
+                <div class="card__title">
+                    <span class="card__title-icon" aria-hidden="true">🔗</span>
+                    Join Room
+                </div>
+                <p class="card__subtitle">Enter a room code to join your friends</p>
+                <div class="card__body">
+                    <div class="input-group">
+                        <label class="input-label" for="join-name">Your Name</label>
+                        <input
+                            type="text"
+                            id="join-name"
+                            class="input"
+                            placeholder="Enter your name"
+                            maxlength="16"
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="join-code">Room Code</label>
+                        <input
+                            type="text"
+                            id="join-code"
+                            class="input input--code"
+                            placeholder="ABCD"
+                            maxlength="4"
+                            autocomplete="off"
+                            spellcheck="false"
+                            style="margin: 0 auto;"
+                        >
+                    </div>
+
+                    <button type="button" id="btn-join-room" class="btn btn--secondary btn--full">
+                        <span class="btn__icon">🚀</span>
+                        Join Room
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="landing__footer">
+            Made with <span>❤️</span> for word game lovers
+        </footer>
+    </main>
+
+    <!-- ═══════════════════════════════════════════
+         TOAST CONTAINER
+         ═══════════════════════════════════════════ -->
+    <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- ═══════════════════════════════════════════
+         LOADING OVERLAY
+         ═══════════════════════════════════════════ -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;" aria-hidden="true">
+        <div class="spinner spinner--lg"></div>
+        <p class="loading-overlay__text" id="loading-text">Connecting to server...</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         MODE TOGGLE STYLES
+         ═══════════════════════════════════════════ -->
+    <style>
+        .mode-toggle {
+            display: flex;
+            gap: var(--space-2);
+            width: 100%;
+        }
+        .mode-toggle__option {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-4);
+            background: var(--surface-2);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-weight: var(--font-semibold);
+            font-size: var(--text-sm);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+        .mode-toggle__option:hover {
+            background: var(--surface-3);
+            border-color: var(--tile-border-filled);
+            color: var(--text-primary);
+        }
+        .mode-toggle__option.active {
+            background: rgba(106, 170, 100, 0.1);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+        }
+        .mode-toggle__option.active[data-mode="coop"] {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--info);
+            color: var(--info);
+        }
+        .mode-toggle__icon {
+            font-size: 1.1em;
+        }
+    </style>
+
+    <!-- Scripts -->
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/socket.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

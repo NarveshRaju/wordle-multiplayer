@@ -1,0 +1,586 @@
+/* ============================================
+   WORDLE PARTY — Components
+   Buttons, inputs, cards, modals, toasts
+   ============================================ */
+
+/* ══════════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════════ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  line-height: 1;
+  letter-spacing: var(--tracking-wide);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  min-height: 48px;
+  border: none;
+}
+
+/* Primary Button */
+.btn--primary {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.btn--primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn--primary:active {
+  background: #4a7d45;
+}
+
+/* Secondary Button */
+.btn--secondary {
+  background: var(--secondary);
+  color: #ffffff;
+}
+
+.btn--secondary:hover {
+  background: var(--secondary-dark);
+}
+
+.btn--secondary:active {
+  background: #4a4e50;
+}
+
+/* Ghost Button */
+.btn--ghost {
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  border: 1px solid var(--glass-border);
+}
+
+.btn--ghost:hover {
+  background: var(--surface-3);
+  color: var(--text-primary);
+  border-color: var(--tile-border-filled);
+}
+
+/* Outline Button */
+.btn--outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn--outline:hover {
+  background: rgba(106, 170, 100, 0.08);
+}
+
+/* Button Sizes */
+.btn--sm {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  min-height: 36px;
+  border-radius: var(--radius-sm);
+}
+
+.btn--lg {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-lg);
+  min-height: 56px;
+  border-radius: var(--radius-sm);
+}
+
+.btn--full {
+  width: 100%;
+}
+
+/* Button with icon */
+.btn__icon {
+  font-size: 1.1em;
+  display: flex;
+  align-items: center;
+}
+
+/* ══════════════════════════════════════════════
+   INPUTS
+   ══════════════════════════════════════════════ */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.input-label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+  background: #ffffff;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-base);
+  min-height: 48px;
+}
+
+.input:hover {
+  border-color: var(--tile-border-filled);
+}
+
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(106, 170, 100, 0.15);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+  font-weight: var(--font-normal);
+}
+
+/* Room Code Input — monospace, large */
+.input--code {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  padding: var(--space-4);
+  max-width: 200px;
+}
+
+/* Select / Dropdown */
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  padding-right: var(--space-10);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+  background: #ffffff;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-base);
+  min-height: 48px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.select:hover {
+  border-color: var(--tile-border-filled);
+}
+
+.select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(106, 170, 100, 0.15);
+}
+
+.select-wrapper::after {
+  content: '▾';
+  position: absolute;
+  right: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  pointer-events: none;
+  font-size: var(--text-lg);
+}
+
+.select option {
+  background: #ffffff;
+  color: var(--text-primary);
+  padding: var(--space-2);
+}
+
+/* ══════════════════════════════════════════════
+   CARDS
+   ══════════════════════════════════════════════ */
+
+.card {
+  background: #ffffff;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+}
+
+.card:hover {
+  border-color: var(--tile-border-filled);
+  box-shadow: var(--shadow-md);
+}
+
+.card__title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.card__subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-6);
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Card accent variants (simplified) */
+.card--accent {
+  border-color: var(--primary);
+}
+
+.card--purple {
+  border-top: 3px solid var(--primary);
+}
+
+.card--cyan {
+  border-top: 3px solid var(--secondary);
+}
+
+/* ══════════════════════════════════════════════
+   MODAL
+   ══════════════════════════════════════════════ */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  padding: var(--space-4);
+  animation: modalBackdropIn 300ms ease-out forwards;
+}
+
+.modal-overlay.modal-closing {
+  animation: modalBackdropOut 200ms ease-in forwards;
+}
+
+.modal-overlay.modal-closing .modal {
+  animation: modalContentOut 200ms ease-in forwards;
+}
+
+.modal {
+  background: #ffffff;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalContentIn 300ms ease-out forwards;
+  box-shadow: var(--shadow-2xl);
+}
+
+.modal__header {
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.modal__title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  margin-bottom: var(--space-2);
+}
+
+.modal__subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+}
+
+.modal__body {
+  margin-bottom: var(--space-6);
+}
+
+.modal__footer {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+}
+
+.modal__close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  color: var(--text-tertiary);
+  background: var(--surface-2);
+  font-size: var(--text-lg);
+  transition: all var(--transition-fast);
+}
+
+.modal__close:hover {
+  background: var(--surface-3);
+  color: var(--text-primary);
+}
+
+/* ══════════════════════════════════════════════
+   TOAST NOTIFICATIONS
+   ══════════════════════════════════════════════ */
+
+.toast-container {
+  position: fixed;
+  top: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  pointer-events: none;
+  width: 100%;
+  max-width: 400px;
+  padding: 0 var(--space-4);
+}
+
+.toast {
+  background: var(--text-primary);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: #ffffff;
+  box-shadow: var(--shadow-md);
+  animation: toastSlideIn 300ms ease-out forwards;
+  pointer-events: auto;
+  text-align: center;
+  max-width: 100%;
+}
+
+.toast.toast-exit {
+  animation: toastSlideOut 200ms ease-in forwards;
+}
+
+.toast--error {
+  background: var(--error);
+  color: #ffffff;
+}
+
+.toast--success {
+  background: var(--success);
+  color: #ffffff;
+}
+
+.toast--warning {
+  background: #b5942e;
+  color: #ffffff;
+}
+
+.toast--info {
+  background: var(--info);
+  color: #ffffff;
+}
+
+/* ══════════════════════════════════════════════
+   LOADING OVERLAY
+   ══════════════════════════════════════════════ */
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  z-index: var(--z-max);
+  animation: fadeIn 200ms ease-out;
+}
+
+.loading-overlay__text {
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+}
+
+/* ══════════════════════════════════════════════
+   PLAYER AVATAR
+   ══════════════════════════════════════════════ */
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: #ffffff;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.avatar--sm {
+  width: 32px;
+  height: 32px;
+  font-size: var(--text-sm);
+}
+
+.avatar--lg {
+  width: 56px;
+  height: 56px;
+  font-size: var(--text-2xl);
+}
+
+.avatar--1 { background: var(--player-1); }
+.avatar--2 { background: var(--player-2); }
+.avatar--3 { background: var(--player-3); }
+.avatar--4 { background: var(--player-4); }
+
+/* Host crown */
+.avatar__crown {
+  position: absolute;
+  top: -8px;
+  right: -4px;
+  font-size: 14px;
+}
+
+/* ══════════════════════════════════════════════
+   ROOM CODE DISPLAY
+   ══════════════════════════════════════════════ */
+
+.room-code {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  letter-spacing: var(--tracking-widest);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.room-code:hover {
+  background: var(--surface-3);
+  border-color: var(--tile-border-filled);
+}
+
+.room-code__copy {
+  font-size: var(--text-xs);
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+}
+
+.room-code:hover .room-code__copy {
+  opacity: 1;
+}
+
+/* Large room code for lobby */
+.room-code--lg {
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-3xl);
+  border-radius: var(--radius-md);
+  gap: var(--space-4);
+  letter-spacing: 0.4em;
+}
+
+/* ══════════════════════════════════════════════
+   TOOLTIP
+   ══════════════════════════════════════════════ */
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  padding: var(--space-1) var(--space-3);
+  background: var(--text-primary);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  color: #ffffff;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-fast);
+  z-index: var(--z-tooltip);
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* ══════════════════════════════════════════════
+   CONNECTION STATUS
+   ══════════════════════════════════════════════ */
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  color: var(--text-tertiary);
+}
+
+.connection-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.connection-dot.disconnected {
+  background: var(--error);
+}
+
+.connection-dot.connecting {
+  background: var(--warning);
+  animation: dotPulse 1s ease-in-out infinite;
+}
