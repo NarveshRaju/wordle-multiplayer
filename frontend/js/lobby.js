@@ -140,7 +140,7 @@ class LobbyController {
             if (data.gameMode) {
                 this.gameMode = data.gameMode;
                 this._updateModeDisplay();
-                UI.showToast(`Game mode changed to ${this.gameMode === 'race' ? 'Race ⚡' : 'Co-op 🤝'}`, 'info');
+                UI.showToast(`Game mode changed to ${this.gameMode === 'race' ? 'Race' : 'Co-op'}`, 'info');
             }
         });
 
@@ -337,7 +337,10 @@ class LobbyController {
         const headerIcon = document.getElementById('header-mode-icon');
         const headerText = document.getElementById('header-mode-text');
         const headerBadge = document.getElementById('header-mode-badge');
-        if (headerIcon) headerIcon.textContent = isRace ? '⚡' : '🤝';
+        if (headerIcon) {
+            headerIcon.innerHTML = isRace ? '<i data-lucide="zap"></i>' : '<i data-lucide="users"></i>';
+            if (window.lucide) lucide.createIcons({ root: headerIcon });
+        }
         if (headerText) headerText.textContent = isRace ? 'Race' : 'Co-op';
         if (headerBadge) {
             headerBadge.className = `badge ${isRace ? 'badge--primary' : 'badge--secondary'}`;
@@ -347,7 +350,10 @@ class LobbyController {
         const lobbyIcon = document.getElementById('lobby-mode-icon');
         const lobbyText = document.getElementById('lobby-mode-text');
         const lobbyBadge = document.getElementById('lobby-mode-badge');
-        if (lobbyIcon) lobbyIcon.textContent = isRace ? '⚡' : '🤝';
+        if (lobbyIcon) {
+            lobbyIcon.innerHTML = isRace ? '<i data-lucide="zap"></i>' : '<i data-lucide="users"></i>';
+            if (window.lucide) lucide.createIcons({ root: lobbyIcon });
+        }
         if (lobbyText) lobbyText.textContent = isRace ? 'Race Mode' : 'Co-op Mode';
         if (lobbyBadge) {
             lobbyBadge.className = `lobby__mode-badge ${isRace ? 'lobby__mode-badge--race' : 'lobby__mode-badge--coop'}`;

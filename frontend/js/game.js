@@ -172,7 +172,7 @@
         // Keyboard is always enabled (no turns)
         keyboard.setEnabled(true);
 
-        UI.showToast('Game started! Good luck! 🎯', 'success');
+        UI.showToast('Game started! Good luck!', 'success');
     }
 
     // ════════════════════════════════════════════
@@ -317,7 +317,7 @@
             gameActive = false;
             board.bounceRow(currentRow);
             UI.showConfetti();
-            UI.showToast(gameMode === 'coop' ? 'Team win! 🎉' : 'Brilliant! 🎉', 'success', 3000);
+            UI.showToast(gameMode === 'coop' ? 'Team win!' : 'Brilliant!', 'success', 3000);
         } else {
             currentRow++;
             currentCol = 0;
@@ -374,7 +374,7 @@
             gameActive = false;
             board.bounceRow(row);
             UI.showConfetti();
-            UI.showToast(`${data.playerName} found it! Team win! 🎉`, 'success');
+            UI.showToast(`${data.playerName} found it! Team win!`, 'success');
         } else {
             // Move to next row
             currentRow = row + 1;
@@ -497,9 +497,18 @@
         const myPosition = sorted.indexOf(myResult) + 1;
 
         if (emojiEl) {
-            if (myPosition === 1 && myResult?.solved) emojiEl.textContent = '🏆';
-            else if (myResult?.solved) emojiEl.textContent = '🎉';
-            else emojiEl.textContent = '😔';
+            if (myPosition === 1 && myResult?.solved) {
+                emojiEl.innerHTML = '<i data-lucide="trophy"></i>';
+                if (window.lucide) lucide.createIcons({ root: emojiEl });
+            }
+            else if (myResult?.solved) {
+                emojiEl.innerHTML = '<i data-lucide="party-popper"></i>';
+                if (window.lucide) lucide.createIcons({ root: emojiEl });
+            }
+            else {
+                emojiEl.innerHTML = '<i data-lucide="frown"></i>';
+                if (window.lucide) lucide.createIcons({ root: emojiEl });
+            }
         }
 
         if (titleEl) {
@@ -544,7 +553,10 @@
     function renderCoopResults(results, data, emojiEl, titleEl, subtitleEl) {
         const teamSolved = data.solved || results.some(r => r.solved);
 
-        if (emojiEl) emojiEl.textContent = teamSolved ? '🎉' : '😔';
+        if (emojiEl) {
+            emojiEl.innerHTML = teamSolved ? '<i data-lucide="party-popper"></i>' : '<i data-lucide="frown"></i>';
+            if (window.lucide) lucide.createIcons({ root: emojiEl });
+        }
         if (titleEl) titleEl.textContent = teamSolved ? 'Team Victory!' : 'Team Defeat';
         if (subtitleEl) {
             subtitleEl.textContent = teamSolved
@@ -612,7 +624,7 @@
         const overlay = document.getElementById('game-over-overlay');
         if (overlay) overlay.style.display = 'none';
 
-        UI.showToast('New round! 🎯', 'success');
+        UI.showToast('New round!', 'success');
     }
 
     // ════════════════════════════════════════════

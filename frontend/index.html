@@ -49,7 +49,7 @@
             <!-- CREATE ROOM Card -->
             <div class="landing__card card card--purple">
                 <div class="card__title">
-                    <span class="card__title-icon" aria-hidden="true">🎮</span>
+                    <span class="card__title-icon" aria-hidden="true"><i data-lucide="gamepad-2"></i></span>
                     Create Room
                 </div>
                 <p class="card__subtitle">Start a new game and invite friends</p>
@@ -78,7 +78,7 @@
                                 aria-checked="true"
                                 data-mode="race"
                             >
-                                <span class="mode-toggle__icon">⚡</span>
+                                <span class="mode-toggle__icon"><i data-lucide="zap"></i></span>
                                 <span class="mode-toggle__label">Race</span>
                             </button>
                             <button
@@ -89,14 +89,14 @@
                                 aria-checked="false"
                                 data-mode="coop"
                             >
-                                <span class="mode-toggle__icon">🤝</span>
+                                <span class="mode-toggle__icon"><i data-lucide="users"></i></span>
                                 <span class="mode-toggle__label">Co-op</span>
                             </button>
                         </div>
                     </div>
 
                     <button type="button" id="btn-create-room" class="btn btn--primary btn--full">
-                        <span class="btn__icon">✨</span>
+                        <span class="btn__icon"><i data-lucide="sparkles"></i></span>
                         Create Room
                     </button>
                 </div>
@@ -105,7 +105,7 @@
             <!-- JOIN ROOM Card -->
             <div class="landing__card card card--cyan">
                 <div class="card__title">
-                    <span class="card__title-icon" aria-hidden="true">🔗</span>
+                    <span class="card__title-icon" aria-hidden="true"><i data-lucide="link"></i></span>
                     Join Room
                 </div>
                 <p class="card__subtitle">Enter a room code to join your friends</p>
@@ -138,7 +138,7 @@
                     </div>
 
                     <button type="button" id="btn-join-room" class="btn btn--secondary btn--full">
-                        <span class="btn__icon">🚀</span>
+                        <span class="btn__icon"><i data-lucide="rocket"></i></span>
                         Join Room
                     </button>
                 </div>
@@ -147,7 +147,7 @@
 
         <!-- Footer -->
         <footer class="landing__footer">
-            Made with <span>❤️</span> for word game lovers
+            Made with <span><i data-lucide="heart" fill="currentColor"></i></span> for word game lovers
         </footer>
     </main>
 
@@ -211,9 +211,14 @@
 
     <!-- Scripts -->
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="js/config.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/socket.js"></script>
     <script src="js/app.js"></script>
+    <script>
+        // Initialize icons
+        lucide.createIcons();
+    </script>
 </body>
 </html>
