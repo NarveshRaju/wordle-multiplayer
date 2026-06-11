@@ -4,7 +4,7 @@
  */
 const CONFIG = {
     /** Backend WebSocket server URL. Change to your deployed URL for production. */
-    BACKEND_URL: 'http://localhost:3000',
+    BACKEND_URL: 'https://wordle-multiplayer-63la.onrender.com',
 
     /** Maximum number of players per room */
     MAX_PLAYERS: 4,
